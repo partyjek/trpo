@@ -1,11 +1,11 @@
-#TRPO repository (Sibsutis ZO)
+# TRPO repository (Sibsutis ZO)
 
-*Name:* IPCALC
+**Name:** IPCALC
 
-*Student:* Reznikov E.V.
+**Student:** Reznikov E.V.
 
-*Group:* ZP-021
+**Group:** ZP-021
 
-*UID:* 73210090
+**UID:** 73210090
 
-##This software can print to screen some info on inputed IP address with netmask
+## This software can print to screen some info on inputed IP address with netmask
