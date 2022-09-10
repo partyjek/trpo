@@ -177,3 +177,86 @@ int *bin2addr(int** ip_bin){
     }
     return net_bcast;
 }
+
+
+
+//Functions of print first part of result
+void print_p1(int* ip_addr_mask){
+
+    //Define variables
+    int i;
+
+    //Print to user
+    cout << "IP address: ";
+    for (i = 0; i < 3; i++){
+        cout << ip_addr_mask[i] << ".";
+    }
+    cout <<ip_addr_mask[i] << endl;
+    cout << "Netmask:    ";
+    for (i = 4; i < 7; i++){
+        cout <<ip_addr_mask[i] << ".";
+    }
+    cout <<ip_addr_mask[i] << endl;
+}
+
+//Functions of print second part of result
+void print_p2(int* net_bcast){
+
+    //Define variables
+    int i;
+    double addrs = 1;
+
+    //Print to user
+    cout << "Wildcard:   ";
+    for (i = 8; i < 11; i++){
+        cout << net_bcast[i] << ".";
+    }
+    cout <<net_bcast[i] << endl;
+    cout << "Network:    ";
+    for (i = 0; i < 3; i++){
+        cout << net_bcast[i] << ".";
+    }
+    cout <<net_bcast[i] << endl;
+    cout << "Broadcast:  ";
+    for (i = 4; i < 7; i++){
+        cout << net_bcast[i] << ".";
+    }
+    cout <<net_bcast[i] << endl;
+    cout << "Net class:  ";
+    if (net_bcast[0] == 0){
+        cout << "Reserved (0.0.0.0 - 0.255.255.255)" << endl;
+    }
+    else if (net_bcast[0] > 1 && net_bcast[0] <= 126){
+        cout << "A (1.0.0.0 - 126.255.255.255)" << endl;
+    }
+    else if (net_bcast[0] == 127){
+        cout << "Reserved (127.0.0.0 - 127.255.255.255)" << endl;
+    }
+    else if (net_bcast[0] >= 128 && net_bcast[0] <= 191){
+        cout << "B (128.0.0.0 - 191.255.255.255)" << endl;
+    }
+    else if (net_bcast[0] > 191 && net_bcast[0] <= 223){
+        cout << "C (192.0.0.0 - 239.255.255.255)" << endl;
+    }
+    else if (net_bcast[0] > 223 && net_bcast[0] <= 239){
+        cout << "D (224.0.0.0 - 239.255.255.255)" << endl;
+    }
+    else{
+        cout << "E (240.0.0.0 - 255.255.255.255)" << endl;
+    }
+    cout << "Addresses:  ";
+    for (i = 8; i < 12; i++){
+        addrs *= (net_bcast[i] + 1);
+    }
+    cout << addrs << endl;
+    cout << "Hosts:      ";
+    if (addrs == 1){
+        cout << "1" << endl;
+    }
+    else if (addrs == 2){
+        cout << "2" << endl;
+    }
+    else{
+        cout << (addrs - 2) << endl;
+    }
+}
