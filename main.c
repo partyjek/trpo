@@ -42,6 +42,7 @@ string localize(string ip_net){
         }
     }
     ip_net = ip_addr_str + to_string(mask);
+
     return ip_net;
 }
 
@@ -104,11 +105,15 @@ int *gen_ip_array(string ip_net){
         ip_addr_mask[i] = ip_addr_ar[i];
         ip_addr_mask[i+4] = ip_mask_ar[i];
     }
+
     return ip_addr_mask;
 }
 
 int **dec2bin(int* ip){
+
     static int **ip_bin = new int*[8];
+
+    //Decode dec to bin[8]
     for (int i = 0; i < 8; i++)
         ip_bin[i] = new int[8];
     for (int i = 0; i < 8; i++){
@@ -122,13 +127,57 @@ int **dec2bin(int* ip){
             }
         }
     }
+
     return ip_bin;
+}
+
+int *bin2addr(int** ip_bin){
+
+    static int *net_bcast = new int[12];
+    int wcard[4],wcard_bin[4][8];
+
+    //Generate arrays with zero values
+    for (int i = 0; i < 8; i++){
+        net_bcast[i] = 0;
+        wcard[i] = 0;
+    }
+
+    //Generate wildcard
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 8; j++){
+            if (ip_bin[i+4][j] == 0){
+                wcard_bin[i][j] = 1;
+            }
+            else{
+                wcard_bin[i][j] = 0;
+            }
+            wcard[i] += wcard_bin[i][j] * pow(2,7-j);
+        }
+    }
+
+    //Generate net,bcast and wcard in one array[4N,4B,4W]
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 8; j++){
+            net_bcast[i] += (ip_bin[i][j] * ip_bin[i+4][j]) * pow(2,7-j);
+        }
+        cout << net_bcast[i] << ".";
+    }
+    cout << endl << endl;
+    for (int i = 0; i < 4; i++){
+        net_bcast[i+4] = net_bcast[i];
+        for (int j = 0; j < 8; j++){
+            net_bcast[i+4] += (wcard_bin[i][j] * pow(2,7-j));
+        }
+    net_bcast[i+8]=wcard[i];
+    }
+    return net_bcast;
 }
 
 int main(){
 
     string ip_net;
     int* ip_addr_mask;
+    int* net_bcast;
     int** ip_bin;
 
     //Input IP address and Netmask
@@ -147,19 +196,29 @@ int main(){
     //Generate binary IP and Netmask (array[[A],[B],[C],[D],[M1],[M2],[M3],[M4]])
     ip_bin = dec2bin(ip_addr_mask);
 
+    //Find Net adress and broadcast
+    net_bcast = bin2addr(ip_bin);
+
+
+
 //    for (int i = 0; i < 8; i++){
 //        cout << ip[i] << endl;
 //    }
-    for (int i = 0; i < 8; i++){
-        for (int j = 0; j < 8; j++){
-            cout << ip_bin[i][j];
-        }
-        cout << endl << endl;
+    for (int i = 0; i < 4; i++){
+        cout <<net_bcast[i] << ".";
     }
-
+    cout << endl;
+    for (int i = 0; i < 4; i++){
+        cout <<net_bcast[i+4] << ".";
+    }
+    cout << endl;
+    for (int i = 0; i < 4; i++){
+        cout <<net_bcast[i+8] << ".";
+    }
 
     //Delete all arrays
     delete [] ip_addr_mask;
+    delete [] net_bcast;
     for (int i = 0; i < 8; i++){
         delete [] ip_bin[i];
     }
