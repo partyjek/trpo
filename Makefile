@@ -10,7 +10,7 @@ TEST_DIR = ./test
 FLAGS =-Wall
 
 #Pre-define targets
-.PHONY: all clean
+.PHONY: all clean test
 
 # Default target
 all: $(BIN_DIR)/main
@@ -32,3 +32,10 @@ clean:
 # Run target
 run:
 	$(BIN_DIR)/$(EXE)
+
+# Test target
+test: $(BUILD_DIR)/functions.o $(BUILD_DIR)/test.o
+	$(CC) $(FLAGS) $(BUILD_DIR)/functions.o $(BUILD_DIR)/test.o -o $(BIN_DIR)/test
+
+$(BUILD_DIR)/test.o:
+	$(CC) $(FLAGS) -c $(TEST_DIR)/test.cpp -o $(BUILD_DIR)/test.o
