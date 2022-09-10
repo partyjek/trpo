@@ -1,6 +1,8 @@
+//Project IPCALC
+
+//Includes
 #include <iostream>
 #include <string>
-#include <cmath>
 #include "functions.cpp"
 
 //Use "standart" namespace (string,cout,cin etc.)

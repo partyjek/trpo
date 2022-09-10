@@ -1,10 +1,15 @@
 //All of used functions is here
 
+//Includes
+#include <cmath>
+#include <iostream>
+#include <string>
+
 //Use "standart" namespace (string,cout,cin etc.)
 using namespace std;
 
 //Function of localize netmask
-string localize(string ip_net){
+inline string localize(string ip_net){
 
     //Define variables
     string delim_addr = ".",ip_addr_str;
@@ -48,7 +53,7 @@ string localize(string ip_net){
 }
 
 //Function of gen IP array
-int *gen_ip_array(string ip_net){
+inline int *gen_ip_array(string ip_net){
 
     //Define variables
     int ip_addr_ar[4],ip_mask,ip_mask_dec,ip_mask_ar[4],i;
@@ -113,7 +118,7 @@ int *gen_ip_array(string ip_net){
 }
 
 //Function of convert standart IP/NET to binary mode
-int **dec2bin(int* ip){
+inline int **dec2bin(int* ip){
 
     //Define variables
     static int **ip_bin = new int*[8];
@@ -137,7 +142,7 @@ int **dec2bin(int* ip){
 }
 
 //Function or convert binary IP/NET to standart mode
-int *bin2addr(int** ip_bin){
+inline int *bin2addr(int** ip_bin){
 
     //Define variables
     static int *net_bcast = new int[12];
@@ -181,7 +186,7 @@ int *bin2addr(int** ip_bin){
 
 
 //Functions of print first part of result
-void print_p1(int* ip_addr_mask){
+inline void print_p1(int* ip_addr_mask){
 
     //Define variables
     int i;
@@ -200,7 +205,7 @@ void print_p1(int* ip_addr_mask){
 }
 
 //Functions of print second part of result
-void print_p2(int* net_bcast){
+inline void print_p2(int* net_bcast){
 
     //Define variables
     int i;
