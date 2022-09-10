@@ -87,7 +87,7 @@ int *gen_ip_array(string ip_net){
         cout << "Net mask is not integer" << endl;
         exit(0);
     }
-    if (ip_mask < 0 | ip_mask > 32){
+    if (ip_mask < 0 || ip_mask > 32){
         cout << "Net mask is not in range (0,32)" << endl;
         exit(0);
     }

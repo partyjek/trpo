@@ -70,19 +70,19 @@ int main(){
     if (net_bcast[0] == 0){
         cout << "Reserved (0.0.0.0 - 0.255.255.255)" << endl;
     }
-    else if (net_bcast[0] > 1 & net_bcast[0] <= 126){
+    else if (net_bcast[0] > 1 && net_bcast[0] <= 126){
         cout << "A (1.0.0.0 - 126.255.255.255)" << endl;
     }
     else if (net_bcast[0] == 127){
         cout << "Reserved (127.0.0.0 - 127.255.255.255)" << endl;
     }
-    else if (net_bcast[0] >= 128 & net_bcast[0] <= 191){
+    else if (net_bcast[0] >= 128 && net_bcast[0] <= 191){
         cout << "B (128.0.0.0 - 191.255.255.255)" << endl;
     }
-    else if (net_bcast[0] > 191 & net_bcast[0] <= 223){
+    else if (net_bcast[0] > 191 && net_bcast[0] <= 223){
         cout << "C (192.0.0.0 - 239.255.255.255)" << endl;
     }
-    else if (net_bcast[0] > 223 & net_bcast[0] <= 239){
+    else if (net_bcast[0] > 223 && net_bcast[0] <= 239){
         cout << "D (224.0.0.0 - 239.255.255.255)" << endl;
     }
     else{
