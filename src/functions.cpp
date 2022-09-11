@@ -180,7 +180,7 @@ inline int *bin2addr(int **ip_bin)
     return net_bcast;
 }
 
-// Functions of print first part of result
+// Function of print first part of result
 inline void print_p1(int *ip_addr_mask)
 {
     // Define variables
@@ -199,12 +199,12 @@ inline void print_p1(int *ip_addr_mask)
     cout << ip_addr_mask[i] << endl;
 }
 
-// Functions of print second part of result
+// Function of print second part of result
 inline void print_p2(int *net_bcast)
 {
     // Define variables
     int i;
-    double addrs = 1;
+    long int addrs = 1;
 
     // Print to user
     cout << "Wildcard:   ";
@@ -242,6 +242,7 @@ inline void print_p2(int *net_bcast)
     for (i = 8; i < 12; i++) {
         addrs *= (net_bcast[i] + 1);
     }
+    cout.precision(10);
     cout << addrs << endl;
     cout << "Hosts:      ";
     if (addrs == 1) {
@@ -250,5 +251,112 @@ inline void print_p2(int *net_bcast)
         cout << "2" << endl;
     } else {
         cout << (addrs - 2) << endl;
+    }
+}
+
+// Function of testing input string
+inline void test_input(string ip_net)
+{
+    // Define variables
+    string delim_addr = ".", ip_addr_str;
+    string delim_mask = "/", ip_mask_str, ip_mask_dig;
+    int pos = ip_net.find(delim_mask), cnt;
+    int ip_mask[4], ip_addr[4];
+
+    // Split IP address and netmask
+    ip_addr_str = ip_net.substr(0, pos + 1);
+    ip_mask_dig = ip_net.substr(pos + 1, ip_net.length());
+
+
+    // Check existance delimiter
+    if (ip_addr_str.length() == 0 || ip_mask_dig.length() == 0) {
+        cout << "IP/Netmask is not valid" << endl;
+        exit(0);
+    }
+
+    // Check netmask format
+    if ((ip_mask_dig).length() <= 2) {
+        if (stoi(ip_mask_dig) < 0 && stoi(ip_mask_dig) > 32) {
+            cout << "Netmask is not valid" << endl;
+            exit(0);
+        }
+    goto check_ip;
+    }
+    else if ((ip_mask_dig).length() >= 7 && (ip_mask_dig).length() <= 15) {
+        cnt = 0;
+        for (string::size_type i = 0; i < ip_mask_dig.length(); i++) {
+            if (ip_mask_dig[i] == delim_addr[0])
+                cnt++;
+        }
+        if (cnt != 3) {
+            cout << "Netmask is not valid" << endl;
+            exit(0);
+        }
+        try {
+            for (int i = 0; i < 4; i++) {
+                ip_mask[i]
+                        = stoi(ip_mask_dig.substr(0, ip_mask_dig.find(delim_addr)));
+                ip_mask_dig.erase(0, ip_mask_dig.find(delim_addr) + 1);
+            }
+        }
+        catch (...) {
+            cout << "Netmask is not valid" << endl;
+            exit(0);
+        }
+    }
+    else {
+        cout << "Netmask is not valid" << endl;
+        exit(0);
+    }
+
+    // Check for correct netmask
+    for (int i = 0; i < 4; i++) {
+        if (ip_mask[i] != 0 && ip_mask[i] != 128 && ip_mask[i] != 192 && ip_mask[i] != 224 && ip_mask[i] != 240 && ip_mask[i] != 248 && ip_mask[i] != 252 && ip_mask[i] != 254 && ip_mask[i] != 255) {
+            cout << "Netmask is not valid" << endl;
+            exit(0);
+        }
+    }
+    for (int i = 1; i < 4; i++) {
+        if (ip_mask[i - 1] != 255 && ip_mask[i] > ip_mask[i - 1]) {
+            cout << "Netmask is not correct" << endl;
+            exit(0);
+        }
+    }
+
+    // Check ip address format
+    check_ip:
+    if ((ip_addr_str).length() >= 7 && (ip_addr_str).length() <= 15) {
+        cnt = 0;
+        for (string::size_type i = 0; i < ip_addr_str.length(); i++) {
+            if (ip_addr_str[i] == delim_addr[0])
+                cnt++;
+        }
+        if (cnt != 3) {
+            cout << "IP address is not valid" << endl;
+            exit(0);
+        }
+        try {
+            for (int i = 0; i < 4; i++) {
+                ip_addr[i]
+                        = stoi(ip_addr_str.substr(0, ip_addr_str.find(delim_addr)));
+                ip_addr_str.erase(0, ip_addr_str.find(delim_addr) + 1);
+            }
+        }
+        catch (...) {
+            cout << "IP address is not valid" << endl;
+            exit(0);
+        }
+    }
+    else {
+        cout << "IP address is not valid" << endl;
+        exit(0);
+    }
+
+    // Check for correct IP address
+    for (int i = 0; i < 4; i++) {
+        if (ip_addr[i] < 0 || ip_addr[i] > 255) {
+            cout << "IP address is not valid" << endl;
+            exit(0);
+        }
     }
 }

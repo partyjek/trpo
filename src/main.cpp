@@ -1,7 +1,7 @@
 // Project IPCALC
 
 // Includes
-#include "functions.cpp"
+#include <functions.cpp>
 #include <iostream>
 #include <string>
 
@@ -23,6 +23,9 @@ int main()
          << endl;
     cin >> ip_net;
     cout << endl;
+
+    // Check for input
+    test_input(ip_net);
 
     // Localize IP/mask with many types of input
     if ((ip_net.substr(ip_net.find('/') + 1, ip_net.length())).length() <= 2) {
