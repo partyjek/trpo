@@ -13,8 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Check codestyle
+      run: git ls-files *.{cpp} | xargs clang-format -i --verbose /src/main.cpp /src/function.cpp && git diff --exit-code
       
-    - name: Install
+    - name: Build
       run: make
        
     - name: test
