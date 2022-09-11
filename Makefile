@@ -7,7 +7,8 @@ BIN_DIR = ./bin
 BUILD_DIR = ./build
 SRC_DIR = ./src
 TEST_DIR = ./test
-FLAGS =-Wall
+FLAGS =-Wall -Werror
+FLAGS_T =-I src -I thirdparty
 
 #Pre-define targets
 .PHONY: all clean test
@@ -34,8 +35,16 @@ run:
 	$(BIN_DIR)/$(EXE)
 
 # Test target
-test: $(BUILD_DIR)/functions.o $(BUILD_DIR)/test.o
-	$(CC) $(FLAGS) $(BUILD_DIR)/functions.o $(BUILD_DIR)/test.o -o $(BIN_DIR)/test
+test: $(BUILD_DIR)/test_m.o $(BUILD_DIR)/functions.o $(BUILD_DIR)/test.o
+	$(CC) $(FLAGS) $(BUILD_DIR)/test_m.o $(BUILD_DIR)/functions.o $(BUILD_DIR)/test.o -o $(BIN_DIR)/test
+
+$(BUILD_DIR)/test_m.o:
+	$(CC) $(FLAGS) $(FLAGS_T) -c $(TEST_DIR)/main.cpp -o $(BUILD_DIR)/test_m.o
 
 $(BUILD_DIR)/test.o:
-	$(CC) $(FLAGS) -c $(TEST_DIR)/test.cpp -o $(BUILD_DIR)/test.o
+	$(CC) $(FLAGS) $(FLAGS_T) -c $(TEST_DIR)/test.cpp -o $(BUILD_DIR)/test.o
+
+# Run test target
+runtest:
+	$(BIN_DIR)/test
+
