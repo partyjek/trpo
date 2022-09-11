@@ -267,7 +267,6 @@ inline void test_input(string ip_net)
     ip_addr_str = ip_net.substr(0, pos + 1);
     ip_mask_dig = ip_net.substr(pos + 1, ip_net.length());
 
-
     // Check existance delimiter
     if (ip_addr_str.length() == 0 || ip_mask_dig.length() == 0) {
         cout << "IP/Netmask is not valid" << endl;
@@ -280,9 +279,8 @@ inline void test_input(string ip_net)
             cout << "Netmask is not valid" << endl;
             exit(0);
         }
-    goto check_ip;
-    }
-    else if ((ip_mask_dig).length() >= 7 && (ip_mask_dig).length() <= 15) {
+        goto check_ip;
+    } else if ((ip_mask_dig).length() >= 7 && (ip_mask_dig).length() <= 15) {
         cnt = 0;
         for (string::size_type i = 0; i < ip_mask_dig.length(); i++) {
             if (ip_mask_dig[i] == delim_addr[0])
@@ -294,24 +292,25 @@ inline void test_input(string ip_net)
         }
         try {
             for (int i = 0; i < 4; i++) {
-                ip_mask[i]
-                        = stoi(ip_mask_dig.substr(0, ip_mask_dig.find(delim_addr)));
+                ip_mask[i] = stoi(
+                        ip_mask_dig.substr(0, ip_mask_dig.find(delim_addr)));
                 ip_mask_dig.erase(0, ip_mask_dig.find(delim_addr) + 1);
             }
-        }
-        catch (...) {
+        } catch (...) {
             cout << "Netmask is not valid" << endl;
             exit(0);
         }
-    }
-    else {
+    } else {
         cout << "Netmask is not valid" << endl;
         exit(0);
     }
 
     // Check for correct netmask
     for (int i = 0; i < 4; i++) {
-        if (ip_mask[i] != 0 && ip_mask[i] != 128 && ip_mask[i] != 192 && ip_mask[i] != 224 && ip_mask[i] != 240 && ip_mask[i] != 248 && ip_mask[i] != 252 && ip_mask[i] != 254 && ip_mask[i] != 255) {
+        if (ip_mask[i] != 0 && ip_mask[i] != 128 && ip_mask[i] != 192
+                && ip_mask[i] != 224 && ip_mask[i] != 240 && ip_mask[i] != 248
+                && ip_mask[i] != 252 && ip_mask[i] != 254
+                && ip_mask[i] != 255) {
             cout << "Netmask is not valid" << endl;
             exit(0);
         }
@@ -323,8 +322,8 @@ inline void test_input(string ip_net)
         }
     }
 
-    // Check ip address format
-    check_ip:
+// Check ip address format
+check_ip:
     if ((ip_addr_str).length() >= 7 && (ip_addr_str).length() <= 15) {
         cnt = 0;
         for (string::size_type i = 0; i < ip_addr_str.length(); i++) {
@@ -337,17 +336,15 @@ inline void test_input(string ip_net)
         }
         try {
             for (int i = 0; i < 4; i++) {
-                ip_addr[i]
-                        = stoi(ip_addr_str.substr(0, ip_addr_str.find(delim_addr)));
+                ip_addr[i] = stoi(
+                        ip_addr_str.substr(0, ip_addr_str.find(delim_addr)));
                 ip_addr_str.erase(0, ip_addr_str.find(delim_addr) + 1);
             }
-        }
-        catch (...) {
+        } catch (...) {
             cout << "IP address is not valid" << endl;
             exit(0);
         }
-    }
-    else {
+    } else {
         cout << "IP address is not valid" << endl;
         exit(0);
     }
