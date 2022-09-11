@@ -1,6 +1,6 @@
 #include <ctest.h>
-#include <iostream>
 #include <functions.cpp>
+#include <iostream>
 
 using namespace std;
 
@@ -80,7 +80,7 @@ CTEST(gen_ip_array, gen_mask)
     // Compare
     bool result = true;
     for (int i = 0; i <= 3; i++) {
-        if (get_func[i+4] != expected[i])
+        if (get_func[i + 4] != expected[i])
             result = false;
     }
     ASSERT_TRUE(result);
@@ -124,7 +124,7 @@ CTEST(dec2bin, A_IP2bin)
     for (int i = 0; i <= 3; i++) {
         for (int j = 0; j <= 7; j++) {
             if (get_func[i][j] != expected[j])
-            result = false;
+                result = false;
         }
     }
     ASSERT_TRUE(result);
@@ -147,7 +147,7 @@ CTEST(dec2bin, B_IP2bin)
     for (int i = 0; i <= 3; i++) {
         for (int j = 0; j <= 7; j++) {
             if (get_func[i][j] != expected[j])
-            result = false;
+                result = false;
         }
     }
     ASSERT_TRUE(result);
@@ -170,7 +170,7 @@ CTEST(dec2bin, C_IP2bin)
     for (int i = 0; i <= 3; i++) {
         for (int j = 0; j <= 7; j++) {
             if (get_func[i][j] != expected[j])
-            result = false;
+                result = false;
         }
     }
     ASSERT_TRUE(result);
@@ -193,7 +193,7 @@ CTEST(dec2bin, D_IP2bin)
     for (int i = 0; i <= 3; i++) {
         for (int j = 0; j <= 7; j++) {
             if (get_func[i][j] != expected[j])
-            result = false;
+                result = false;
         }
     }
     ASSERT_TRUE(result);
@@ -216,7 +216,7 @@ CTEST(dec2bin, ip2bin_false)
     for (int i = 0; i <= 3; i++) {
         for (int j = 0; j <= 7; j++) {
             if (get_func[i][j] != expected[j])
-            result = false;
+                result = false;
         }
     }
     ASSERT_FALSE(result);
@@ -239,7 +239,7 @@ CTEST(dec2bin, zero_mask2bin)
     for (int i = 4; i <= 7; i++) {
         for (int j = 0; j <= 7; j++) {
             if (get_func[i][j] != expected)
-            result = false;
+                result = false;
         }
     }
     ASSERT_TRUE(result);
@@ -262,7 +262,7 @@ CTEST(dec2bin, max_mask2bin)
     for (int i = 4; i <= 7; i++) {
         for (int j = 0; j <= 7; j++) {
             if (get_func[i][j] != expected)
-            result = false;
+                result = false;
         }
     }
     ASSERT_TRUE(result);
@@ -285,7 +285,7 @@ CTEST(dec2bin, half_mask2bin_false)
     for (int i = 4; i <= 7; i++) {
         for (int j = 0; j <= 7; j++) {
             if (get_func[i][j] != expected)
-            result = false;
+                result = false;
         }
     }
     ASSERT_FALSE(result);
@@ -300,7 +300,7 @@ CTEST(bin2addr, zero_bin2ip)
         ip_bin[i] = new int[8];
     for (int i = 0; i <= 7; i++) {
         for (int j = 0; j <= 7; j++) {
-             ip_bin[i][j] = 0;
+            ip_bin[i][j] = 0;
         }
     }
 
@@ -314,7 +314,7 @@ CTEST(bin2addr, zero_bin2ip)
     bool result = true;
     for (int i = 0; i <= 3; i++) {
         if (get_func[i] != expected)
-        result = false;
+            result = false;
     }
     ASSERT_TRUE(result);
 }
@@ -345,7 +345,7 @@ CTEST(bin2addr, ip_bin2ip)
     bool result = true;
     for (int i = 0; i <= 3; i++) {
         if (get_func[i] != expected)
-        result = false;
+            result = false;
     }
     ASSERT_TRUE(result);
 }
@@ -373,7 +373,7 @@ CTEST(bin2addr, max_bin2ip)
     bool result = true;
     for (int i = 0; i <= 3; i++) {
         if (get_func[i] != expected)
-        result = false;
+            result = false;
     }
     ASSERT_TRUE(result);
 }
@@ -387,7 +387,7 @@ CTEST(bin2addr, zero_bin2wcard)
         ip_bin[i] = new int[8];
     for (int i = 0; i <= 7; i++) {
         for (int j = 0; j <= 7; j++) {
-             ip_bin[i][j] = 0;
+            ip_bin[i][j] = 0;
         }
     }
 
@@ -400,8 +400,8 @@ CTEST(bin2addr, zero_bin2wcard)
     // Compare
     bool result = true;
     for (int i = 0; i <= 3; i++) {
-        if (get_func[i+8] != expected)
-        result = false;
+        if (get_func[i + 8] != expected)
+            result = false;
     }
     ASSERT_TRUE(result);
 }
@@ -431,8 +431,8 @@ CTEST(bin2addr, ip_bin2wcard)
     // Compare
     bool result = true;
     for (int i = 0; i <= 3; i++) {
-        if (get_func[i+8] != expected)
-        result = false;
+        if (get_func[i + 8] != expected)
+            result = false;
     }
     ASSERT_TRUE(result);
 }
@@ -459,8 +459,8 @@ CTEST(bin2addr, max_bin2wcard)
     // Compare
     bool result = true;
     for (int i = 0; i <= 3; i++) {
-        if (get_func[i+8] != expected)
-        result = false;
+        if (get_func[i + 8] != expected)
+            result = false;
     }
     ASSERT_TRUE(result);
 }
@@ -488,7 +488,7 @@ CTEST(bin2addr, bin2ip_false)
     bool result = true;
     for (int i = 0; i <= 3; i++) {
         if (get_func[8] != expected)
-        result = false;
+            result = false;
     }
     ASSERT_FALSE(result);
 }
@@ -515,8 +515,8 @@ CTEST(bin2addr, bin2wcard_false)
     // Compare
     bool result = true;
     for (int i = 0; i <= 3; i++) {
-        if (get_func[i+8] != expected)
-        result = false;
+        if (get_func[i + 8] != expected)
+            result = false;
     }
     ASSERT_FALSE(result);
 }
